@@ -15,7 +15,7 @@ const CARS: Car[] = [
     { id: "koleos", name: "Koleos", image: "/images/cars/koleos.png" },
     { id: "kwid", name: "Kwid", image: "/images/cars/kwid.png" },
     { id: "oroch", name: "Oroch", image: "/images/cars/oroch.png" },
-    { id: "clio-v", name: "Clio V", image: "/images/cars/clio-v.png" },
+    { id: "clio-v", name: "Clio", image: "/images/cars/clio-v.png" },
     { id: "stepway", name: "Stepway", image: "/images/cars/stepway.png" },
 ];
 
