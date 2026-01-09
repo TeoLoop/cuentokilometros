@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Fredoka } from "next/font/google";
+import Image from "next/image";
 import "./globals.css";
 
 const fredoka = Fredoka({
@@ -24,6 +25,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${fredoka.variable} font-sans antialiased`}>
+        {/* Desktop Background - GLOBAL FIXED */}
+        <div className="fixed inset-0 -z-50 hidden md:block pointer-events-none select-none">
+          <Image
+            src="/images/backgrounds/landing-desktop.jpg"
+            alt="Background"
+            fill
+            className="object-cover object-center"
+            priority
+            quality={100}
+            sizes="100vw"
+          />
+        </div>
         {children}
       </body>
     </html>

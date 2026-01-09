@@ -149,27 +149,12 @@ export default function Home() {
 
   return (
     <main className="h-screen overflow-y-auto md:h-auto md:overflow-visible snap-y snap-mandatory scroll-smooth relative w-full overflow-x-hidden flex flex-col items-center">
-      {/* Desktop Background - Fixed */}
-      <div className="fixed inset-0 -z-20 bg-[#6b26ff] hidden md:flex items-center justify-center">
-        <div className="relative w-full h-full max-w-[1920px]">
-          <Image
-            src="/images/backgrounds/landing-desktop.jpg"
-            alt="Background"
-            fill
-            className="object-cover"
-            priority
-            quality={100}
-            sizes="100vw"
-          />
-        </div>
-      </div>
-
       {/* SECTION 1: Header (Mobile: Screen 1, Desktop: Top) */}
       <section className="snap-start w-full relative flex flex-col items-center justify-center p-4 h-[100dvh] md:h-auto md:max-w-7xl md:pt-10 shrink-0">
         {/* Mobile Background 1 */}
         <div className="absolute inset-0 -z-10 md:hidden">
           <Image
-            src="/images/backgrounds/landing-mobile2.jpg"
+            src="/images/backgrounds/landing-mobile1.jpg"
             alt="Background Mobile 1"
             fill
             className="object-cover object-bottom"
@@ -183,7 +168,7 @@ export default function Home() {
 
         {/* Logo and Title */}
         <div className="flex flex-col items-center animate-fade-in-down mb-4 md:mb-8 z-10">
-          <div className="relative w-64 h-32 md:w-80 md:h-40">
+          <div className="relative w-80 h-40 md:w-96 md:h-48">
             <Image
               src="/images/ui/title.png"
               alt="Cuento Kilometros"
@@ -230,7 +215,7 @@ export default function Home() {
         {/* Mobile Background 2 */}
         <div className="absolute inset-0 -z-10 md:hidden">
           <Image
-            src="/images/backgrounds/landing-mobile1.jpg"
+            src="/images/backgrounds/landing-mobile2.jpg"
             alt="Background Mobile 2"
             fill
             className="object-cover"
@@ -378,7 +363,6 @@ export default function Home() {
         </div>
       )}
 
-      {/* --- Validation Modal (Nice Alert) --- */}
       {/* --- Validation Modal (Nice Alert) --- */}
       {validationErrors && validationErrors.length > 0 && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
