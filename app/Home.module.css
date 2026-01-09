@@ -1,0 +1,74 @@
+/* Home.module.css */
+
+/* --- 1. FONDO DE ESCRITORIO (FIXED) --- */
+.desktopBgContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -50;
+  pointer-events: none;
+  user-select: none;
+  display: none;
+  overflow: hidden;
+}
+
+/* Reglas para la imagen dentro del contenedor */
+.desktopBgContainer img {
+  /* EL SECRETO: Anclar la imagen ABAJO. 
+     Así, si la pantalla es "petisa", se recorta el cielo pero NUNCA el auto. */
+  object-position: center bottom !important;
+  
+  object-fit: cover;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+@media (min-width: 768px) {
+  .desktopBgContainer {
+    display: block;
+  }
+}
+
+/* --- 2. FONDO MOBILE (ABSOLUTE) --- */
+.mobileBgContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -10;
+  display: block;
+}
+
+.mobileBgContainer img {
+  object-fit: cover;
+  object-position: center bottom;
+}
+
+@media (min-width: 768px) {
+  .mobileBgContainer {
+    display: none;
+  }
+}
+
+/* --- 3. RESPONSIVE INTELIGENTE (Para Notebooks) --- */
+/* Esta clase detecta si estás en PC pero con poca altura (típico 1366x768)
+   y achica todo un poco para que entre bien. */
+
+.mainResponsive {
+  transform-origin: top center;
+  transition: transform 0.3s ease;
+  width: 100%;
+}
+
+/* Si es escritorio (min 768) Y la altura es menor a 900px */
+@media (min-width: 768px) and (max-height: 900px),
+       (min-width: 768px) and (max-width: 1280px) {
+  .mainResponsive {
+    transform: scale(0.85);
+    /* Compensamos el espacio vacío que deja el scale al final */
+    margin-bottom: -15vh; 
+  }
+}

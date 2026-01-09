@@ -9,13 +9,13 @@ interface Car {
 
 const CARS: Car[] = [
     { id: "arkana", name: "Arkana", image: "/images/cars/arkana.png" },
+    { id: "clio-v", name: "Clio", image: "/images/cars/clio-v.png" },
     { id: "duster", name: "Duster", image: "/images/cars/duster.png" },
     { id: "kangoo", name: "Kangoo", image: "/images/cars/kangoo.png" },
     { id: "kardian", name: "Kardian", image: "/images/cars/kardian.png" },
     { id: "koleos", name: "Koleos", image: "/images/cars/koleos.png" },
     { id: "kwid", name: "Kwid", image: "/images/cars/kwid.png" },
     { id: "oroch", name: "Oroch", image: "/images/cars/oroch.png" },
-    { id: "clio-v", name: "Clio", image: "/images/cars/clio-v.png" },
     { id: "stepway", name: "Stepway", image: "/images/cars/stepway.png" },
 ];
 
