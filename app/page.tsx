@@ -168,7 +168,7 @@ export default function Home() {
       <main className={`${styles.mainResponsive} h-screen overflow-y-auto md:h-auto md:overflow-visible snap-y snap-mandatory scroll-smooth relative flex flex-col items-center`}>
 
         {/* SECTION 1: Header (Mobile: Screen 1, Desktop: Top) */}
-        <section className="snap-start w-full relative flex flex-col items-center justify-center p-4 h-[100dvh] md:h-auto md:max-w-7xl md:pt-10 shrink-0">
+        <section className="snap-start w-full relative flex flex-col items-center justify-center p-4 h-[100dvh] md:h-auto md:max-w-7xl md:pt-4 shrink-0">
 
           {/* Mobile Background 1 */}
           <div className={styles.mobileBgContainer}>
@@ -186,7 +186,7 @@ export default function Home() {
           </div>
 
           {/* Logo and Title */}
-          <div className={`flex flex-col items-center animate-fade-in-down mb-4 md:mb-2 z-10 ${styles.titleContainer}`}>
+          <div className={`flex flex-col items-center animate-fade-in-down mb-4 md:mb-1 z-10 ${styles.titleContainer}`}>
             <div className="relative w-80 h-40 md:w-96 md:h-48">
               <Image
                 src="/images/ui/title.png"

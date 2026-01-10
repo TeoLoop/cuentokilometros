@@ -102,3 +102,18 @@
         /* Achicamos más si es muy petisa */
     }
 }
+
+/* NIVEL 3: PANTALLAS EXTRA PETISAS (ej: 1366x768 con barra de tareas o 1340x642) */
+@media (min-width: 768px) and (max-height: 680px) {
+    .mainResponsive {
+        transform: scale(0.65);
+        /* Escalado agresivo para que entre todo */
+        margin-bottom: -35vh;
+        /* Compensación fuerte del espacio */
+    }
+
+    .titleContainer {
+        transform: scale(0.65);
+        /* Título también bien chico */
+    }
+}
