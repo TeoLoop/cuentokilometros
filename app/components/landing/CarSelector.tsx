@@ -27,14 +27,14 @@ interface CarSelectorProps {
 export function CarSelector({ selectedCar, onSelect }: CarSelectorProps) {
 
     return (
-        <div className="w-full max-w-7xl mx-auto mt-4 px-4 overflow-hidden relative">
-            <h3 className="text-white text-center text-lg font-medium mb-4 drop-shadow-md">
+        <div className="w-full max-w-7xl mx-auto mt-2 md:mt-4 px-4 overflow-hidden relative">
+            <h3 className="text-white text-center text-sm md:text-lg font-medium mb-2 md:mb-4 drop-shadow-md">
                 Elegí tu Renault de viaje
             </h3>
 
             {/* Container for grid/scroll */}
             <div
-                className="grid grid-cols-3 gap-2 md:flex md:justify-center md:gap-4 justify-items-center"
+                className="grid grid-cols-3 gap-1 md:flex md:justify-center md:gap-4 justify-items-center"
             >
                 {CARS.map((car) => {
                     const isSelected = selectedCar === car.id;
@@ -43,7 +43,7 @@ export function CarSelector({ selectedCar, onSelect }: CarSelectorProps) {
                         <div
                             key={car.id}
                             onClick={() => onSelect(car.id)}
-                            className="relative cursor-pointer w-full max-w-[100px] flex flex-col items-center"
+                            className="relative cursor-pointer w-full max-w-[60px] md:max-w-[100px] flex flex-col items-center"
                         >
                             {/* Selection Highlight */}
                             {isSelected && (
@@ -56,17 +56,17 @@ export function CarSelector({ selectedCar, onSelect }: CarSelectorProps) {
                             )}
 
                             {/* Car Card - Smaller and contained */}
-                            <div className={`relative z-10 p-2 flex flex-col items-center transition-opacity duration-300 w-full rounded-xl border border-white/20 bg-white/10 backdrop-blur-sm ${isSelected ? 'opacity-100 bg-white/20' : 'opacity-70 hover:opacity-100'}`}>
+                            <div className={`relative z-10 p-1 md:p-2 flex flex-col items-center transition-opacity duration-300 w-full rounded-xl border border-white/20 bg-white/10 backdrop-blur-sm ${isSelected ? 'opacity-100 bg-white/20' : 'opacity-70 hover:opacity-100'}`}>
                                 <div className="relative w-full aspect-[2/1]">
                                     <Image
                                         src={car.image}
                                         alt={car.name}
                                         fill
                                         className="object-contain"
-                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                        sizes="(max-width: 768px) 33vw, (max-width: 1200px) 10vw, 10vw"
                                     />
                                 </div>
-                                <span className="text-white text-[10px] md:text-xs mt-1 font-medium drop-shadow-sm text-center truncate w-full">{car.name}</span>
+                                <span className="text-white text-[9px] md:text-xs mt-1 font-medium drop-shadow-sm text-center truncate w-full">{car.name}</span>
                             </div>
                         </div>
                     );

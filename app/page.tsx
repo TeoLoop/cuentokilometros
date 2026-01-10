@@ -30,11 +30,11 @@ export default function Home() {
   const [isSavingEmail, setIsSavingEmail] = useState(false);
   const [validationErrors, setValidationErrors] = useState<
     | {
-        charId: number;
-        missingField: "name" | "role";
-        currentName: string;
-        currentRole: string;
-      }[]
+      charId: number;
+      missingField: "name" | "role";
+      currentName: string;
+      currentRole: string;
+    }[]
     | null
   >(null);
 
@@ -157,7 +157,7 @@ export default function Home() {
           alt="Background"
           fill
           // Nota: El object-position: bottom está forzado en el CSS ahora
-          className="object-cover" 
+          className="object-cover"
           priority
           quality={100}
           sizes="100vw"
@@ -166,10 +166,10 @@ export default function Home() {
 
       {/* AQUÍ aplicamos la clase mainResponsive para achicar la UI en notebooks */}
       <main className={`${styles.mainResponsive} h-screen overflow-y-auto md:h-auto md:overflow-visible snap-y snap-mandatory scroll-smooth relative flex flex-col items-center`}>
-        
+
         {/* SECTION 1: Header (Mobile: Screen 1, Desktop: Top) */}
         <section className="snap-start w-full relative flex flex-col items-center justify-center p-4 h-[100dvh] md:h-auto md:max-w-7xl md:pt-10 shrink-0">
-          
+
           {/* Mobile Background 1 */}
           <div className={styles.mobileBgContainer}>
             <Image
@@ -186,7 +186,7 @@ export default function Home() {
           </div>
 
           {/* Logo and Title */}
-          <div className="flex flex-col items-center animate-fade-in-down mb-4 md:mb-8 z-10">
+          <div className={`flex flex-col items-center animate-fade-in-down mb-4 md:mb-2 z-10 ${styles.titleContainer}`}>
             <div className="relative w-80 h-40 md:w-96 md:h-48">
               <Image
                 src="/images/ui/title.png"
@@ -196,7 +196,7 @@ export default function Home() {
                 sizes="(max-width: 768px) 90vw, 50vw"
               />
             </div>
-            <div className="relative w-12 h-12 md:w-12 md:h-12 -mt-4 md:-mt-4">
+            <div className="relative w-14 h-14 md:w-16 md:h-16 -mt-4 md:-mt-6">
               <Image
                 src="/images/ui/renault-logo.svg"
                 alt="Renault"
@@ -231,7 +231,7 @@ export default function Home() {
 
         {/* SECTION 2: Form (Mobile: Screen 2, Desktop: Main) */}
         <section className="snap-start w-full relative flex flex-col items-center p-4 min-h-[100dvh] md:min-h-0 md:h-auto md:max-w-7xl md:pb-10 shrink-0">
-          
+
           {/* Mobile Background 2 */}
           <div className={styles.mobileBgContainer}>
             <Image

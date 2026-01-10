@@ -28,7 +28,7 @@ export function CharacterInput({
 }: CharacterInputProps) {
   return (
     <div className="flex flex-col gap-1 w-full max-w-sm">
-      <label className="text-white font-medium text-base text-center drop-shadow-md">
+      <label className="text-white font-medium text-xs md:text-base text-center drop-shadow-md">
         Personaje {index + 1}
       </label>
       <div className="flex flex-row md:flex-col gap-2">
@@ -39,7 +39,7 @@ export function CharacterInput({
             placeholder="Nombre"
             value={name}
             onChange={(e) => onChange(id, "name", e.target.value)}
-            className="w-full pl-4 pr-4 py-2 rounded-lg bg-white text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 shadow-md text-center text-sm"
+            className="w-full pl-3 pr-3 py-1.5 md:py-2 rounded-lg bg-white text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 shadow-md text-center text-xs md:text-sm"
           />
         </div>
 
@@ -48,7 +48,7 @@ export function CharacterInput({
           <select
             value={role}
             onChange={(e) => onChange(id, "role", e.target.value)}
-            className="w-full pl-4 pr-8 py-2 rounded-lg bg-white text-gray-800 appearance-none focus:outline-none focus:ring-2 focus:ring-pink-500 shadow-md text-center cursor-pointer text-sm"
+            className="w-full pl-3 pr-6 py-1.5 md:py-2 rounded-lg bg-white text-gray-800 appearance-none focus:outline-none focus:ring-2 focus:ring-pink-500 shadow-md text-center cursor-pointer text-xs md:text-sm"
           >
             <option value="" disabled>
               Seleccionar rol
