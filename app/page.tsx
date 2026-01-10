@@ -230,7 +230,7 @@ export default function Home() {
         </section>
 
         {/* SECTION 2: Form (Mobile: Screen 2, Desktop: Main) */}
-        <section className="snap-start w-full relative flex flex-col items-center p-4 min-h-[100dvh] md:min-h-0 md:h-auto md:max-w-7xl md:pb-10 shrink-0">
+        <section className="snap-start w-full relative flex flex-col items-center p-2 min-h-[100dvh] md:min-h-0 md:h-auto md:max-w-7xl md:pb-2 shrink-0">
 
           {/* Mobile Background 2 */}
           <div className={styles.mobileBgContainer}>
@@ -247,7 +247,7 @@ export default function Home() {
           </div>
 
           {/* Characters Grid */}
-          <div className="w-full flex flex-col md:flex-row items-center md:items-start md:justify-center gap-8 max-w-6xl mt-8 md:mt-0 z-10">
+          <div className="w-full flex flex-col md:flex-row items-center md:items-start md:justify-center gap-4 max-w-6xl mt-4 md:mt-0 z-10">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 flex-1 w-full justify-items-center">
               {characters.map((char, index) => (
                 <CharacterInput
@@ -260,7 +260,7 @@ export default function Home() {
             </div>
 
             {/* Buttons Row/Column */}
-            <div className="flex flex-row items-center justify-center md:flex-col gap-3 w-full md:w-auto mt-4 md:mt-6">
+            <div className="flex flex-row items-center justify-center md:flex-col gap-3 w-full md:w-auto mt-4 md:mt-4">
               {characters.length < 6 && (
                 <button
                   onClick={addCharacter}
@@ -288,7 +288,7 @@ export default function Home() {
           </div>
 
           {/* CTA Button */}
-          <div className="mt-4 md:mt-8 pb-10 md:pb-0 z-10">
+          <div className="mt-4 md:mt-4 pb-10 md:pb-0 z-10">
             <button
               onClick={handleGenerate}
               className="bg-[var(--color-brand-pink,#E91E63)] text-white text-base md:text-lg px-10 py-3 rounded-full font-medium shadow-xl hover:bg-pink-600 transition-all transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
