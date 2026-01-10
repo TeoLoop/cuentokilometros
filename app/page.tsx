@@ -260,11 +260,11 @@ export default function Home() {
             </div>
 
             {/* Buttons Row/Column */}
-            <div className="flex flex-row items-center justify-center md:flex-col gap-3 w-full md:w-auto mt-4 md:mt-4">
+            <div className="flex flex-row items-center justify-center md:flex-col gap-3 w-full md:w-auto mt-4 md:mt-6">
               {characters.length < 6 && (
                 <button
                   onClick={addCharacter}
-                  className="flex items-center justify-center gap-2 bg-[var(--color-brand-pink,#E91E63)] text-white px-5 py-2 rounded-full font-medium text-sm shadow-lg hover:bg-pink-600 transition-colors transform hover:scale-105 active:scale-95 w-auto md:w-full min-w-[140px] cursor-pointer"
+                  className="flex items-center justify-center gap-2 bg-[var(--color-brand-pink,#E91E63)] text-white px-5 py-2 rounded-full font-medium text-sm md:text-base shadow-lg hover:bg-pink-600 transition-colors transform hover:scale-105 active:scale-95 w-auto md:w-full min-w-[140px] cursor-pointer"
                 >
                   <Plus size={16} />
                   Agregar
@@ -274,7 +274,7 @@ export default function Home() {
               {characters.length > 1 && (
                 <button
                   onClick={() => setCharacters((prev) => prev.slice(0, -1))}
-                  className="bg-white/20 hover:bg-white/30 text-white px-5 py-2 rounded-full font-medium text-sm transition-colors border border-white/40 w-auto md:w-full min-w-[140px] cursor-pointer"
+                  className="bg-white/20 hover:bg-white/30 text-white px-5 py-2 rounded-full font-medium text-sm md:text-base transition-colors border border-white/40 w-auto md:w-full min-w-[140px] cursor-pointer"
                 >
                   Eliminar último
                 </button>
@@ -325,113 +325,115 @@ export default function Home() {
           )}
         </section>
 
-        {/* --- Loading Overlay --- */}
-        {isLoading && (
-          <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#6b26ff]/90 backdrop-blur-sm">
-            <div className="relative w-32 h-32 animate-pulse">
-              <Image
-                src="/images/ui/renault-logo.svg"
-                alt="Loading"
-                fill
-                className="object-contain"
-              />
-            </div>
-            <p className="text-white text-xl mt-4 font-medium animate-bounce">
-              Generando tu historia...
-            </p>
-          </div>
-        )}
-
-        {/* --- Email Modal --- */}
-        {showEmailModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
-            <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl animate-fade-in-up">
-              <h3 className="text-xl font-bold text-gray-800 mb-2">
-                Guardar tu cuento
-              </h3>
-              <p className="text-gray-600 text-sm mb-4">
-                Ingresa tu email para recibir el cuento y novedades.
-              </p>
-
-              <input
-                type="email"
-                placeholder="tu@email.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-purple-600 text-black"
-              />
-
-              <div className="flex justify-end gap-3">
-                <button
-                  onClick={() => setShowEmailModal(false)}
-                  className="text-gray-500 hover:text-gray-700 font-medium cursor-pointer"
-                >
-                  Cancelar
-                </button>
-                <button
-                  onClick={handleSaveEmail}
-                  disabled={isSavingEmail}
-                  className="bg-[var(--color-brand-pink,#E91E63)] text-white px-6 py-2 rounded-full font-medium hover:bg-pink-600 transition-colors disabled:opacity-50 cursor-pointer"
-                >
-                  {isSavingEmail ? "Enviando..." : "Guardar"}
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* --- Validation Modal --- */}
-        {validationErrors && validationErrors.length > 0 && (
-          <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
-            <div className="bg-white/90 backdrop-blur-md rounded-2xl p-6 w-full max-w-sm shadow-2xl animate-bounce-in border-l-4 border-[var(--color-brand-pink,#E91E63)]">
-              <h3 className="text-lg font-bold text-gray-800 mb-2">
-                ¡Faltan algunos detalles!
-              </h3>
-              <p className="text-gray-600 text-sm mb-4">
-                Para que el cuento quede genial, completa la información faltante:
-              </p>
-
-              <div className="max-h-60 overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-gray-300">
-                {validationErrors.map((error, idx) => (
-                  <div
-                    key={idx}
-                    className="bg-gray-100 p-3 rounded-lg mb-3 text-sm text-gray-700 border border-gray-200"
-                  >
-                    {error.missingField === "name" ? (
-                      <>
-                        Rol:{" "}
-                        <span className="font-semibold">{error.currentRole}</span>
-                        <br />
-                        <span className="text-red-500 font-medium">
-                          ⚠️ Falta el Nombre
-                        </span>
-                      </>
-                    ) : (
-                      <>
-                        Nombre:{" "}
-                        <span className="font-semibold">{error.currentName}</span>
-                        <br />
-                        <span className="text-red-500 font-medium">
-                          ⚠️ Falta el Rol
-                        </span>
-                      </>
-                    )}
-                  </div>
-                ))}
-              </div>
-
-              <div className="flex justify-end mt-4">
-                <button
-                  onClick={() => setValidationErrors(null)}
-                  className="bg-[var(--color-brand-pink,#E91E63)] text-white px-6 py-2 rounded-full font-medium hover:bg-pink-600 transition-colors shadow-lg cursor-pointer"
-                >
-                  Entendido
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
       </main>
+
+      {/* --- Loading Overlay --- */}
+      {isLoading && (
+        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#6b26ff]/90 backdrop-blur-sm">
+          <div className="relative w-32 h-32 animate-pulse">
+            <Image
+              src="/images/ui/renault-logo.svg"
+              alt="Loading"
+              fill
+              className="object-contain"
+            />
+          </div>
+          <p className="text-white text-xl mt-4 font-medium animate-bounce">
+            Generando tu historia...
+          </p>
+        </div>
+      )}
+
+      {/* --- Email Modal --- */}
+      {showEmailModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+          <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl animate-fade-in-up">
+            <h3 className="text-xl font-bold text-gray-800 mb-2">
+              Guardar tu cuento
+            </h3>
+            <p className="text-gray-600 text-sm mb-4">
+              Ingresa tu email para recibir el cuento y novedades.
+            </p>
+
+            <input
+              type="email"
+              placeholder="tu@email.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-purple-600 text-black"
+            />
+
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={() => setShowEmailModal(false)}
+                className="text-gray-500 hover:text-gray-700 font-medium cursor-pointer"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={handleSaveEmail}
+                disabled={isSavingEmail}
+                className="bg-[var(--color-brand-pink,#E91E63)] text-white px-6 py-2 rounded-full font-medium hover:bg-pink-600 transition-colors disabled:opacity-50 cursor-pointer"
+              >
+                {isSavingEmail ? "Enviando..." : "Guardar"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* --- Validation Modal --- */}
+      {validationErrors && validationErrors.length > 0 && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
+          <div className="bg-white/90 backdrop-blur-md rounded-2xl p-6 w-full max-w-sm shadow-2xl animate-bounce-in border-l-4 border-[var(--color-brand-pink,#E91E63)]">
+            <h3 className="text-lg font-bold text-gray-800 mb-2">
+              ¡Faltan algunos detalles!
+            </h3>
+            <p className="text-gray-600 text-sm mb-4">
+              Para que el cuento quede genial, completa la información faltante:
+            </p>
+
+            <div className="max-h-60 overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-gray-300">
+              {validationErrors.map((error, idx) => (
+                <div
+                  key={idx}
+                  className="bg-gray-100 p-3 rounded-lg mb-3 text-sm text-gray-700 border border-gray-200"
+                >
+                  {error.missingField === "name" ? (
+                    <>
+                      Rol:{" "}
+                      <span className="font-semibold">{error.currentRole}</span>
+                      <br />
+                      <span className="text-red-500 font-medium">
+                        ⚠️ Falta el Nombre
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      Nombre:{" "}
+                      <span className="font-semibold">{error.currentName}</span>
+                      <br />
+                      <span className="text-red-500 font-medium">
+                        ⚠️ Falta el Rol
+                      </span>
+                    </>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            <div className="flex justify-end mt-4">
+              <button
+                onClick={() => setValidationErrors(null)}
+                className="bg-[var(--color-brand-pink,#E91E63)] text-white px-6 py-2 rounded-full font-medium hover:bg-pink-600 transition-colors shadow-lg cursor-pointer"
+              >
+                Entendido
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </>
   );
 }

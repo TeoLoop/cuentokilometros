@@ -39,7 +39,7 @@ export function CharacterInput({
             placeholder="Nombre"
             value={name}
             onChange={(e) => onChange(id, "name", e.target.value)}
-            className="w-full pl-3 pr-3 py-1.5 md:py-2 rounded-lg bg-white text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 shadow-md text-center text-xs md:text-sm"
+            className="w-full pl-3 pr-3 py-1.5 md:py-2 rounded-lg bg-white text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 shadow-md text-center text-sm md:text-base"
           />
         </div>
 
@@ -48,7 +48,7 @@ export function CharacterInput({
           <select
             value={role}
             onChange={(e) => onChange(id, "role", e.target.value)}
-            className="w-full pl-3 pr-6 py-1.5 md:py-2 rounded-lg bg-white text-gray-800 appearance-none focus:outline-none focus:ring-2 focus:ring-pink-500 shadow-md text-center cursor-pointer text-xs md:text-sm"
+            className="w-full pl-3 pr-6 py-1.5 md:py-2 rounded-lg bg-white text-gray-800 appearance-none focus:outline-none focus:ring-2 focus:ring-pink-500 shadow-md text-center cursor-pointer text-sm md:text-base"
           >
             <option value="" disabled>
               Seleccionar rol
