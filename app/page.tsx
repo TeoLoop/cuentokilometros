@@ -169,7 +169,7 @@ export default function Home() {
         className={`${styles.mainResponsive} h-screen overflow-y-auto md:h-auto md:overflow-visible snap-y snap-mandatory scroll-smooth relative flex flex-col items-center`}
       >
         {/* SECTION 1: Header (Mobile: Screen 1, Desktop: Top) */}
-        <section className="snap-start w-full relative flex flex-col items-center p-4 h-[100dvh] md:h-auto md:max-w-7xl md:pt-4 shrink-0">
+        <section className="snap-start w-full relative flex flex-col items-center justify-center p-4 h-[100dvh] md:h-auto md:max-w-7xl md:pt-4 shrink-0">
           {/* Mobile Background 1 */}
           <div className={styles.mobileBgContainer}>
             <Image
@@ -185,9 +185,8 @@ export default function Home() {
             <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/80 to-transparent pointer-events-none" />
           </div>
 
-          {/* Content Wrapper for visual centering of top elements */}
-          <div className="flex-1 flex flex-col items-center justify-center z-10 w-full max-w-md">
-            {/* Logo and Title */}
+          {/* Logo and Title - Centered via Parent justify-center */}
+          <div className="flex flex-col items-center justify-center z-10 w-full max-w-md">
             <div
               className={`flex flex-col items-center animate-fade-in-down mb-4 md:mb-1 ${styles.titleContainer}`}
             >
@@ -224,7 +223,7 @@ export default function Home() {
                 .getElementById("create-story-section")
                 ?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="md:hidden bg-white/10 backdrop-blur-md border border-white/30 text-white text-base px-8 py-3 rounded-full font-medium shadow-lg hover:bg-white/20 transition-all transform hover:scale-105 active:scale-95 mb-16 z-10 cursor-pointer animate-fade-in-up"
+            className="md:hidden absolute bottom-24 bg-white/10 backdrop-blur-md border border-white/30 text-white text-base px-8 py-3 rounded-full font-medium shadow-lg hover:bg-white/20 transition-all transform hover:scale-105 active:scale-95 z-10 cursor-pointer animate-fade-in-up"
           >
             Empezá tu Cuento Kilómetros
           </button>
