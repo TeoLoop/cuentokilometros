@@ -190,7 +190,7 @@ export default function Home() {
             <div
               className={`flex flex-col items-center animate-fade-in-down mb-4 md:mb-1 ${styles.titleContainer}`}
             >
-              <div className="relative w-80 h-40 md:w-96 md:h-48">
+              <div className="relative w-64 h-32 md:w-96 md:h-48">
                 <Image
                   src="/images/ui/title.png"
                   alt="Cuento Kilometros"
@@ -199,7 +199,7 @@ export default function Home() {
                   sizes="(max-width: 768px) 90vw, 50vw"
                 />
               </div>
-              <div className="relative w-14 h-14 md:w-16 md:h-16 -mt-4 md:-mt-6">
+              <div className="relative w-12 h-12 md:w-16 md:h-16 -mt-3 md:-mt-6">
                 <Image
                   src="/images/ui/renault-logo.svg"
                   alt="Renault"
@@ -209,7 +209,7 @@ export default function Home() {
               </div>
             </div>
 
-            <p className="text-white text-center text-sm md:hidden max-w-sm drop-shadow-md px-4 font-medium mb-6">
+            <p className="text-white text-center text-xs sm:text-sm md:hidden max-w-xs drop-shadow-md px-4 font-medium mb-6">
               Porque cada Kilómetro en tu Renault es una aventura, creamos
               Cuento Kilómetros. Una plataforma de audio cuentos pensados para
               escuchar en el camino, junto a quienes viajan con vos y tu
