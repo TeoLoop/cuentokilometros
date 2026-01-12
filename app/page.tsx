@@ -30,11 +30,11 @@ export default function Home() {
   const [isSavingEmail, setIsSavingEmail] = useState(false);
   const [validationErrors, setValidationErrors] = useState<
     | {
-      charId: number;
-      missingField: "name" | "role";
-      currentName: string;
-      currentRole: string;
-    }[]
+        charId: number;
+        missingField: "name" | "role";
+        currentName: string;
+        currentRole: string;
+      }[]
     | null
   >(null);
 
@@ -165,11 +165,11 @@ export default function Home() {
       </div>
 
       {/* AQUÍ aplicamos la clase mainResponsive para achicar la UI en notebooks */}
-      <main className={`${styles.mainResponsive} h-screen overflow-y-auto md:h-auto md:overflow-visible snap-y snap-mandatory scroll-smooth relative flex flex-col items-center`}>
-
+      <main
+        className={`${styles.mainResponsive} h-screen overflow-y-auto md:h-auto md:overflow-visible snap-y snap-mandatory scroll-smooth relative flex flex-col items-center`}
+      >
         {/* SECTION 1: Header (Mobile: Screen 1, Desktop: Top) */}
-        <section className="snap-start w-full relative flex flex-col items-center justify-center p-4 h-[100dvh] md:h-auto md:max-w-7xl md:pt-4 shrink-0">
-
+        <section className="snap-start w-full relative flex flex-col items-center p-4 h-[100dvh] md:h-auto md:max-w-7xl md:pt-4 shrink-0">
           {/* Mobile Background 1 */}
           <div className={styles.mobileBgContainer}>
             <Image
@@ -185,32 +185,49 @@ export default function Home() {
             <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/80 to-transparent pointer-events-none" />
           </div>
 
-          {/* Logo and Title */}
-          <div className={`flex flex-col items-center animate-fade-in-down mb-4 md:mb-1 z-10 ${styles.titleContainer}`}>
-            <div className="relative w-80 h-40 md:w-96 md:h-48">
-              <Image
-                src="/images/ui/title.png"
-                alt="Cuento Kilometros"
-                fill
-                className="object-contain"
-                sizes="(max-width: 768px) 90vw, 50vw"
-              />
+          {/* Content Wrapper for visual centering of top elements */}
+          <div className="flex-1 flex flex-col items-center justify-center z-10 w-full max-w-md">
+            {/* Logo and Title */}
+            <div
+              className={`flex flex-col items-center animate-fade-in-down mb-4 md:mb-1 ${styles.titleContainer}`}
+            >
+              <div className="relative w-80 h-40 md:w-96 md:h-48">
+                <Image
+                  src="/images/ui/title.png"
+                  alt="Cuento Kilometros"
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 768px) 90vw, 50vw"
+                />
+              </div>
+              <div className="relative w-14 h-14 md:w-16 md:h-16 -mt-4 md:-mt-6">
+                <Image
+                  src="/images/ui/renault-logo.svg"
+                  alt="Renault"
+                  fill
+                  className="object-contain"
+                />
+              </div>
             </div>
-            <div className="relative w-14 h-14 md:w-16 md:h-16 -mt-4 md:-mt-6">
-              <Image
-                src="/images/ui/renault-logo.svg"
-                alt="Renault"
-                fill
-                className="object-contain"
-              />
-            </div>
+
+            <p className="text-white text-center text-sm md:hidden max-w-sm drop-shadow-md px-4 font-medium mb-6">
+              Porque cada Kilómetro en tu Renault es una aventura, creamos
+              Cuento Kilómetros. Una plataforma de audio cuentos pensados para
+              escuchar en el camino, junto a quienes viajan con vos y tu
+              Renault.
+            </p>
           </div>
 
-          {/* Lorem Ipsum */}
-          <p className="text-white text-center text-sm md:hidden max-w-sm drop-shadow-md px-4 font-medium mb-12 z-10">
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-            nonummy nibh euismod tincidunt ut laoreet dolore magna.
-          </p>
+          <button
+            onClick={() => {
+              document
+                .getElementById("create-story-section")
+                ?.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="md:hidden bg-white/10 backdrop-blur-md border border-white/30 text-white text-base px-8 py-3 rounded-full font-medium shadow-lg hover:bg-white/20 transition-all transform hover:scale-105 active:scale-95 mb-16 z-10 cursor-pointer animate-fade-in-up"
+          >
+            Empezá tu Cuento Kilómetros
+          </button>
 
           {/* Scroll Indicator */}
           <div className="absolute bottom-8 animate-bounce md:hidden z-10 text-white/70">
@@ -230,8 +247,10 @@ export default function Home() {
         </section>
 
         {/* SECTION 2: Form (Mobile: Screen 2, Desktop: Main) */}
-        <section className="snap-start w-full relative flex flex-col items-center p-2 min-h-[100dvh] md:min-h-0 md:h-auto md:max-w-7xl md:pb-2 shrink-0">
-
+        <section
+          id="create-story-section"
+          className="snap-start w-full relative flex flex-col items-center p-2 min-h-[100dvh] md:min-h-0 md:h-auto md:max-w-7xl md:pb-2 shrink-0"
+        >
           {/* Mobile Background 2 */}
           <div className={styles.mobileBgContainer}>
             <Image
@@ -248,7 +267,7 @@ export default function Home() {
 
           {/* Characters Grid */}
           <div className="w-full flex flex-col md:flex-row items-center md:items-start md:justify-center gap-4 max-w-6xl mt-4 md:mt-0 z-10">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 flex-1 w-full justify-items-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 flex-1 w-full justify-items-center">
               {characters.map((char, index) => (
                 <CharacterInput
                   key={char.id}
@@ -324,7 +343,6 @@ export default function Home() {
             </div>
           )}
         </section>
-
       </main>
 
       {/* --- Loading Overlay --- */}
@@ -433,7 +451,6 @@ export default function Home() {
           </div>
         </div>
       )}
-
     </>
   );
 }
