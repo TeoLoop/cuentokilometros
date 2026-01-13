@@ -15,7 +15,7 @@ export async function generateAudio(text: string): Promise<Buffer> {
   try {
     // ID de la voz "Bill" (Narrador estilo documental/cuento)
     // Si prefieres a Rachel usa: "21m00Tcm4TlvDq8ikWAM"
-    const voiceId = "pqHfZKP75CvOlQylNhV4"; 
+    const voiceId = "NDcVpQJv7Naa7ZKrqtEk"; 
 
     const audioStream = await client.generate({
       voice: voiceId,
