@@ -104,31 +104,60 @@ export const useStoryApp = () => {
     };
 
     const handleSaveEmail = async () => {
-    if (!email) return;
+        if (!email) return;
 
-    // --- CAMBIO CLAVE: Descarga Optimista ---
-    // 1. Iniciamos la descarga INMEDIATAMENTE.
-    // Al no haber 'await' antes, el navegador reconoce el clic del usuario y permite la descarga.
-    if (audioSrc) {
-        const link = document.createElement("a");
-        link.href = audioSrc;
-        link.download = "cuento-kilometros.mp3";
-        document.body.appendChild(link);
-        link.click(); 
-        document.body.removeChild(link);
-    }
+        // Recuperamos el archivo real desde la URL del blob para poder compartirlo
+        let fileToShare: File | null = null;
+        if (audioSrc) {
+            try {
+                const blob = await fetch(audioSrc).then((r) => r.blob());
+                fileToShare = new File([blob], "cuento-kilometros.mp3", {
+                    type: "audio/mpeg",
+                });
+            } catch (e) {
+                console.error("Error preparando archivo para compartir", e);
+            }
+        }
 
-    // 2. Ahora sí, guardamos el email en la base de datos (segundo plano)
-    setIsSavingEmail(true);
-    try {
-        await saveEmail(email);
-        setShowEmailModal(false);
-    } catch (e) {
-        console.error(e);
-    } finally {
-        setIsSavingEmail(false);
-    }
-  };
+        // ESTRATEGIA:
+        // 1. Si es móvil/soporta compartir archivos -> Usar Menú Nativo (iOS Friendly)
+        // 2. Si es Desktop -> Usar descarga forzada clásica
+        if (
+            fileToShare &&
+            navigator.canShare &&
+            navigator.canShare({ files: [fileToShare] })
+        ) {
+            try {
+                await navigator.share({
+                    files: [fileToShare],
+                    title: "Cuento Kilómetros",
+                    text: "Escucha este cuento creado con Renault.",
+                });
+            } catch (error) {
+                // El usuario canceló el menú de compartir, no es un error crítico
+                console.log("Compartir cancelado o fallido", error);
+            }
+        } else if (audioSrc) {
+            // Fallback para Desktop (tu código original)
+            const link = document.createElement("a");
+            link.href = audioSrc;
+            link.download = "cuento-kilometros.mp3";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Guardamos el email en BD (siempre, haya descargado o no)
+        setIsSavingEmail(true);
+        try {
+            await saveEmail(email);
+            setShowEmailModal(false);
+        } catch (e) {
+            console.error(e);
+        } finally {
+            setIsSavingEmail(false);
+        }
+    };
 
     return {
         characters,
