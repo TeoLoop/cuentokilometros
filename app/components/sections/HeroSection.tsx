@@ -70,9 +70,14 @@ export const HeroSection = ({ onStartClick }: HeroSectionProps) => {
                     <p
                         className="text-white text-center text-xs sm:text-sm md:hidden w-full max-w-xs drop-shadow-md px-4 font-medium mb-6 mx-auto text-balance"
                     >
-                        Porque cada Kilómetro en tu Renault es una aventura, creamos Cuento
-                        Kilómetros. Una plataforma de audio cuentos pensados para escuchar en
-                        el camino, junto a quienes viajan con vos y tu Renault.
+                        <span className="block mb-2">
+                            Porque cada Kilómetro en tu Renault es una aventura,
+                            creamos Cuento Kilómetros.
+                        </span>
+                        
+                        <span className="block">
+                            Una plataforma de audio cuentos pensados para escuchar en el camino, junto a quienes viajan con vos y tu Renault.
+                        </span>
                     </p>
                 </div>
             </div>

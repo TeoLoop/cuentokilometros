@@ -10,18 +10,25 @@ export async function generateStory(
   const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
 
   const prompt = `
-    Escribe un cuento corto (aprox 100 palabras).
-    Los personajes son: ${characters
-      .filter((c) => c.name.trim() && c.role.trim()) // Only use complete characters
+    Actúa como un cuentacuentos amable para niños pequeños en Uruguay.
+    Escribe un cuento corto (aprox 100 palabras) sobre un viaje familiar.
+
+    INFORMACIÓN DEL VIAJE:
+    - Personajes: ${characters
+      .filter((c) => c.name.trim() && c.role.trim())
       .map((c) => `${c.name} (${c.role})`)
       .join(", ")}.
-    El protagonista viaja en un auto modelo: ${selectedCar}.
-    El cuento debe ser divertido, emocionante y centrado en el viaje en el auto.
-    
-    IMPORTANTE:
+    - El vehículo es un Renault modelo: ${selectedCar}.
+
+    REGLAS DE TONO Y ESTILO:
+    1. LENGUAJE: Usa español rioplatense suave (voseo, palabras como "auto", "lindo", "re divertirse"), pero que sea fácil de entender para un niño.
+    2. SEGURIDAD: El viaje debe ser seguro y tranquilo. PROHIBIDO mencionar alta velocidad, carreras, peligros o maniobras arriesgadas. La aventura está en el paisaje, las canciones o los juegos dentro del auto.
+    3. AMBIENTE: Tono infantil, mágico y positivo. Enfócate en la comodidad del auto y la alegría de compartir el viaje.
+
+    FORMATO DE SALIDA:
     - Retorna SOLO el texto del cuento.
-    - NO uses formato markdown (negritas, títulos, etc).
-    - Texto plano.
+    - NO uses formato markdown (nada de negritas ni títulos).
+    - Texto plano, corrido.
   `;
 
   try {
