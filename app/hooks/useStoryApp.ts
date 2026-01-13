@@ -104,30 +104,31 @@ export const useStoryApp = () => {
     };
 
     const handleSaveEmail = async () => {
-        if (!email) return;
-        setIsSavingEmail(true);
-        try {
-            await saveEmail(email);
-            setShowEmailModal(false);
+    if (!email) return;
 
-            // Auto-download Audio
-            if (audioSrc) {
-                const link = document.createElement("a");
-                link.href = audioSrc;
-                link.download = "cuento-kilometros.mp3";
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            }
+    // --- CAMBIO CLAVE: Descarga Optimista ---
+    // 1. Iniciamos la descarga INMEDIATAMENTE.
+    // Al no haber 'await' antes, el navegador reconoce el clic del usuario y permite la descarga.
+    if (audioSrc) {
+        const link = document.createElement("a");
+        link.href = audioSrc;
+        link.download = "cuento-kilometros.mp3";
+        document.body.appendChild(link);
+        link.click(); 
+        document.body.removeChild(link);
+    }
 
-            alert("Email guardado y audio descargado!");
-        } catch (e) {
-            console.error(e);
-            alert("Error guardando el email.");
-        } finally {
-            setIsSavingEmail(false);
-        }
-    };
+    // 2. Ahora sí, guardamos el email en la base de datos (segundo plano)
+    setIsSavingEmail(true);
+    try {
+        await saveEmail(email);
+        setShowEmailModal(false);
+    } catch (e) {
+        console.error(e);
+    } finally {
+        setIsSavingEmail(false);
+    }
+  };
 
     return {
         characters,
