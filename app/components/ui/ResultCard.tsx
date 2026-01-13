@@ -16,7 +16,9 @@ export const ResultCard = ({
             </h3>
 
             <div className="w-full mb-6 flex justify-center">
-                <audio controls src={audioSrc} className="w-full" autoPlay />
+                {audioSrc ? (
+                    <audio controls src={audioSrc} className="w-full" autoPlay />
+                ) : (<div className="text-white/50 text-sm animate-pulse">Cargando audio...</div>)}
             </div>
 
             <div className="max-h-60 overflow-y-auto pr-2 mb-6 text-sm leading-relaxed scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-transparent">
