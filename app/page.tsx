@@ -43,7 +43,7 @@ export default function Home() {
           className="object-cover"
           priority
           quality={100}
-          sizes="100vw"
+          sizes="(max-width: 768px) 1vw, 100vw"
         />
       </div>
 

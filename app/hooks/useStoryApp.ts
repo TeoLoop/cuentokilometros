@@ -66,7 +66,15 @@ export const useStoryApp = () => {
         }
 
         if (characters.every((c) => !c.name && !c.role)) {
-            alert("Agrega al menos un personaje completo (nombre y rol).");
+            // Generic validation error
+            setValidationErrors([
+                {
+                    charId: 0, // ID 0 represents global/generic
+                    missingField: "all",
+                    currentName: "",
+                    currentRole: "",
+                },
+            ]);
             return;
         }
 

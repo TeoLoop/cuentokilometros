@@ -42,7 +42,7 @@ export const StoryFormSection = ({
                     className="object-cover"
                     priority
                     quality={100}
-                    sizes="100vw"
+                    sizes="(max-width: 768px) 100vw, 1vw"
                 />
                 <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-black/60 to-transparent pointer-events-none" />
             </div>

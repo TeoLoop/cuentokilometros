@@ -22,7 +22,13 @@ export const ValidationModal = ({ errors, onDismiss }: ValidationModalProps) => 
                             key={idx}
                             className="bg-gray-100 p-3 rounded-lg mb-3 text-sm text-gray-700 border border-gray-200"
                         >
-                            {error.missingField === "name" ? (
+                            {error.missingField === "all" ? (
+                                <div className="text-center">
+                                    <span className="text-red-500 font-medium">
+                                        ⚠️ Agrega al menos un personaje completo.
+                                    </span>
+                                </div>
+                            ) : error.missingField === "name" ? (
                                 <>
                                     Rol: <span className="font-semibold">{error.currentRole}</span>
                                     <br />

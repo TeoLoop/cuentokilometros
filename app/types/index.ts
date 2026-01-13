@@ -6,7 +6,7 @@ export interface Character {
 
 export interface ValidationError {
     charId: number;
-    missingField: "name" | "role";
+    missingField: "name" | "role" | "all";
     currentName: string;
     currentRole: string;
 }
