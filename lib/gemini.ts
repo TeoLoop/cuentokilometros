@@ -7,28 +7,29 @@ export async function generateStory(
   selectedCar: string
 ) {
   // Using the model requested by the user
-  const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
+  const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
   const prompt = `
-    Actúa como un cuentacuentos amable para niños pequeños en Uruguay.
-    Escribe un cuento corto (aprox 100 palabras) sobre un viaje familiar.
+    Actúa como un cuentacuentos de fantasía para niños pequeños en Uruguay. 
+    Escribe un cuento corto (aprox 100 palabras) sobre una aventura mágica.
 
-    INFORMACIÓN DEL VIAJE:
-    - Personajes: ${characters
+    ELEMENTOS OBLIGATORIOS:
+    - Viajeros ÚNICAMENTE: ${characters
       .filter((c) => c.name.trim() && c.role.trim())
       .map((c) => `${c.name} (${c.role})`)
-      .join(", ")}.
+      .join(", ")}. (No menciones conductores ni otros personajes).
     - El vehículo es un Renault modelo: ${selectedCar}.
 
-    REGLAS DE TONO Y ESTILO:
-    1. LENGUAJE: Usa español rioplatense suave (voseo, palabras como "auto", "lindo", "re divertirse"), pero que sea fácil de entender para un niño.
-    2. SEGURIDAD: El viaje debe ser seguro y tranquilo. PROHIBIDO mencionar alta velocidad, carreras, peligros o maniobras arriesgadas. La aventura está en el paisaje, las canciones o los juegos dentro del auto.
-    3. AMBIENTE: Tono infantil, mágico y positivo. Enfócate en la comodidad del auto y la alegría de compartir el viaje.
+    REGLAS DE FANTASÍA:
+    1. EL AUTO MÁGICO: El Renault ${selectedCar} no solo es un auto, es un "Navegador de Sueños". El techo solar muestra galaxias, las ventanas revelan mundos secretos y el interior es un refugio de nubes mullidas.
+    2. PAISAJE TRANSFORMADO: El Uruguay del cuento debe ser fantástico. Los árboles pueden ser de cristal, el Río de la Plata de chocolate o las nubes de algodón de azúcar.
+    3. SEGURIDAD Y PAZ: El viaje es un deslizamiento suave y calmo. La magia está en el asombro de descubrir cosas lindas por la ventana, cantar canciones que crean flores o charlar con el paisaje.
+    4. LENGUAJE: Rioplatense tierno ("auto", "lindo", "baúl").
+    5. RESTRICCIÓN: Solo los personajes mencionados.
 
     FORMATO DE SALIDA:
     - Retorna SOLO el texto del cuento.
-    - NO uses formato markdown (nada de negritas ni títulos).
-    - Texto plano, corrido.
+    - Texto plano y corrido.
   `;
 
   try {
