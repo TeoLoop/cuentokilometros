@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { Fredoka } from "next/font/google";
 import "./globals.css";
 
@@ -26,6 +27,7 @@ export default function RootLayout({
       <body className={`${fredoka.variable} font-sans antialiased`}>
 
         {children}
+        <Analytics />
       </body>
     </html>
   );
