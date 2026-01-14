@@ -14,16 +14,17 @@ const client = new ElevenLabsClient({
 export async function generateAudio(text: string): Promise<Buffer> {
   try {
     // ID de la voz "Bill" (Narrador estilo documental/cuento)
-    // Si prefieres a Rachel usa: "21m00Tcm4TlvDq8ikWAM" otro: "NDcVpQJv7Naa7ZKrqtEk"
-    const voiceId = "pqHfZKP75CvOlQylNhV4"; 
+    // Si prefieres a Rachel usa: "21m00Tcm4TlvDq8ikWAM" otro: "NDcVpQJv7Naa7ZKrqtEk" default "pqHfZKP75CvOlQylNhV4"
+    
+    const voiceId = "ByVRQtaK1WDOvTmP1PKO"; 
 
     const audioStream = await client.generate({
       voice: voiceId,
       text: text,
       model_id: "eleven_multilingual_v2", // Crucial para que hable bien español
       voice_settings: {
-        stability: 0.45,       // Más expresividad
-        similarity_boost: 0.8, // Claridad de voz
+        stability: 0.60,       // Más expresividad
+        similarity_boost: 0.75, // Claridad de voz
         style: 0.0,
         use_speaker_boost: true,
       },

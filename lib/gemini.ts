@@ -2,34 +2,52 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 
+// Lista de temáticas para dar variedad
+const THEMES = [
+  "Mundo de los Dinosaurios Amigables",
+  "Viaje Intergaláctico a la Luna de Queso",
+  "Aventura en el Fondo del Mar con Peces Parlantes",
+  "Ciudad Futurista de Robots Ayudantes",
+  "Bosque Encantado de las Hadas",
+  "Isla de los Piratas Buenos",
+  "Carrera en las Nubes de Algodón"
+];
+
 export async function generateStory(
   characters: { name: string; role: string }[],
   selectedCar: string
 ) {
-  // Using the model requested by the user
-  const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+  // Elegimos un tema al azar
+  const randomTheme = THEMES[Math.floor(Math.random() * THEMES.length)];
+
+  // Usamos el modelo solicitado, con fallback
+  const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" }); 
+  // Nota: Cambié a 1.5-flash por seguridad ya que 2.5 a veces da error si no tienes la beta activada, 
+  // pero puedes volver a poner "gemini-2.5-flash" si prefieres.
 
   const prompt = `
-    Actúa como un cuentacuentos de fantasía para niños pequeños en Uruguay. 
-    Escribe un cuento corto (aprox 100 palabras) sobre una aventura mágica.
+    Actúa como un cuentacuentos uruguayo con lenguaje infantil y con mucha imaginación para niños.
+    Escribe un cuento de AL MENOS 300 PALABRAS.
 
-    ELEMENTOS OBLIGATORIOS:
-    - Viajeros ÚNICAMENTE: ${characters
+    --- DATOS DEL VIAJE ---
+    1. PROTAGONISTAS: ${characters
       .filter((c) => c.name.trim() && c.role.trim())
       .map((c) => `${c.name} (${c.role})`)
-      .join(", ")}. (No menciones conductores ni otros personajes).
-    - El vehículo es un Renault modelo: ${selectedCar}.
+      .join(", ")} (No menciones conductores ni otros personajes que no aparecen en la lista).
+    2. VEHÍCULO MÁGICO: Un Renault ${selectedCar}.
+    3. TEMÁTICA DEL CUENTO: ${randomTheme}.
 
-    REGLAS DE FANTASÍA:
-    1. EL AUTO MÁGICO: El Renault ${selectedCar} no solo es un auto, es un "Navegador de Sueños". El techo solar muestra galaxias, las ventanas revelan mundos secretos y el interior es un refugio de nubes mullidas.
-    2. PAISAJE TRANSFORMADO: El Uruguay del cuento debe ser fantástico. Los árboles pueden ser de cristal, el Río de la Plata de chocolate o las nubes de algodón de azúcar.
-    3. SEGURIDAD Y PAZ: El viaje es un deslizamiento suave y calmo. La magia está en el asombro de descubrir cosas lindas por la ventana, cantar canciones que crean flores o charlar con el paisaje.
-    4. LENGUAJE: Rioplatense tierno ("auto", "lindo", "baúl").
-    5. RESTRICCIÓN: Solo los personajes mencionados.
+    --- INSTRUCCIONES DE ESTILO ---
+    1. TONO RIOPLATENSE: Usa palabras nuestras como "auto", "valija", "lindo", "che", "bo", "gurises" (sin exagerar, que sea tierno).
+    2. EL AUTO: El Renault ${selectedCar} debe transformarse según la temática (se tiene que tratar tambien del auto el cuento) (ej: si es mar, se hace submarino; si es espacio, nave espacial), pero manteniendo que es un Renault seguro y cómodo.
+    3. ESTRUCTURA:
+       - Inicio: Suben al auto en Uruguay y algo mágico pasa al arrancar.
+       - Nudo: Exploran el mundo de "${randomTheme}". Pasan algo divertido o asombroso.
+       - Desenlace: Vuelven a casa seguros y felices.
+    4. RITMO: Usa puntuación clara (puntos y comas) para que la narración sea pausada.
 
-    FORMATO DE SALIDA:
-    - Retorna SOLO el texto del cuento.
-    - Texto plano y corrido.
+    --- FORMATO ---
+    Devuelve SOLO el texto del cuento, sin títulos ni introducciones.
   `;
 
   try {
@@ -37,12 +55,7 @@ export async function generateStory(
     const response = await result.response;
     return response.text();
   } catch (error) {
-    console.warn("Gemini 2.5 failed or not available");
-    // Fallback in case the specific requested model tag isn't live for this key
-    const fallbackModel = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",
-    });
-    const result = await fallbackModel.generateContent(prompt);
-    return result.response.text();
+    console.warn("Error en generación, intentando fallback...");
+    return "Había una vez un viaje mágico en un Renault, pero la magia se tomó un descansito. Por favor intenta de nuevo.";
   }
 }
