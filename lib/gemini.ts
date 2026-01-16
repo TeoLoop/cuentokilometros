@@ -26,28 +26,39 @@ export async function generateStory(
   // pero puedes volver a poner "gemini-2.5-flash" si prefieres.
 
   const prompt = `
-    Actúa como un cuentacuentos uruguayo con lenguaje infantil y con mucha imaginación para niños.
-    Escribe un cuento de AL MENOS 300 PALABRAS.
+    Eres un cuentacuentos uruguayo. Escribe un cuento para niños de APROX 300 PALABRAS.
+    
+    ESTRICTAMENTE: 
+    - Devuelve SOLO texto plano y corrido (sin títulos ni capítulos).
+    - NO dejes renglones vacíos innecesarios.
 
-    --- DATOS DEL VIAJE ---
-    1. PROTAGONISTAS: ${characters
-      .filter((c) => c.name.trim() && c.role.trim())
-      .map((c) => `${c.name} (${c.role})`)
-      .join(", ")} (No menciones conductores ni otros personajes que no aparecen en la lista).
-    2. VEHÍCULO MÁGICO: Un Renault ${selectedCar}.
-    3. TEMÁTICA DEL CUENTO: ${randomTheme}.
+    --- PERSONAJES (REGLA DE ORO) ---
+    Los ÚNICOS viajeros son: ${characters.filter(c => c.name && c.role).map(c => `${c.name} (${c.role})`).join(", ")}.
+    
+    PROHIBIDO: 
+    - NO inventes un conductor, chofer o guía.
+    - NO agregues padres, abuelos o mascotas si no están en la lista de arriba.
+    - El auto se maneja solo o lo maneja uno de los personajes listados si es adulto. NADIE MÁS sube al auto.
 
-    --- INSTRUCCIONES DE ESTILO ---
-    1. TONO RIOPLATENSE: Usa palabras nuestras como "auto", "valija", "lindo", "che", "bo", "gurises" (sin exagerar, que sea tierno).
-    2. EL AUTO: El Renault ${selectedCar} debe transformarse según la temática (se tiene que tratar tambien del auto el cuento) (ej: si es mar, se hace submarino; si es espacio, nave espacial), pero manteniendo que es un Renault seguro y cómodo.
-    3. ESTRUCTURA:
-       - Inicio: Suben al auto en Uruguay y algo mágico pasa al arrancar.
-       - Nudo: Exploran el mundo de "${randomTheme}". Pasan algo divertido o asombroso.
-       - Desenlace: Vuelven a casa seguros y felices.
-    4. RITMO: Usa puntuación clara (puntos y comas) para que la narración sea pausada.
+    --- ELEMENTOS ---
+    Auto: Renault ${selectedCar}.
+    Tema: ${randomTheme}.
 
-    --- FORMATO ---
-    Devuelve SOLO el texto del cuento, sin títulos ni introducciones.
+    --- HISTORIA (Fluida y de un tirón) ---
+    Empieza en Uruguay, un día lindo. Suben al Renault ${selectedCar} (describe su confort tiene que girar en torno a esto el principio). Al arrancar, el paisaje cambia mágicamente y entran al mundo de "${randomTheme}".
+    
+    Viven una aventura donde tienen que resolver un problema. puedes usar algo del auto para resolverlo o no.
+    
+    Terminan volviendo a casa felices.
+
+    REGLAS DE CIERRE (CRÍTICO)
+    - El texto debe terminar ESTRICTAMENTE con el punto final de la historia.
+    - NO agregues preguntas al lector como "¿Te gustó?" o "¿Querés otro?".
+    - NO agregues notas del autor ni despedidas.
+    - NO uses emojis.
+
+    --- TONO ---
+    Lenguaje rioplatense tierno ("bo", "che", "gurises"). Emocionante y sensorial.
   `;
 
   try {
