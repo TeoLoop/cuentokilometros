@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { Fredoka } from "next/font/google";
+import Script from "next/script"; // <--- 1. IMPORTAR ESTO
 import "./globals.css";
 
 const fredoka = Fredoka({
@@ -25,6 +26,22 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${fredoka.variable} font-sans antialiased`}>
+        
+        {/* --- GOOGLE ANALYTICS START --- */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-YKNCRVP26Y"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-YKNCRVP26Y');
+          `}
+        </Script>
+        {/* --- GOOGLE ANALYTICS END --- */}
 
         {children}
         <Analytics />
