@@ -7,6 +7,7 @@
 
 body {
     font-family: var(--font-fredoka), sans-serif;
+    font-size: 16px; /* Base size for mobile */
 }
 
 @keyframes fade-in-down {

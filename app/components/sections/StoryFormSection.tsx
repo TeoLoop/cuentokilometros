@@ -67,7 +67,7 @@ export const StoryFormSection = ({
                         {characters.length < 6 && (
                             <button
                                 onClick={onAddCharacter}
-                                className="flex items-center justify-center gap-2 bg-[var(--color-brand-pink,#E91E63)] text-white px-5 py-2 rounded-full font-medium text-sm md:text-base shadow-lg hover:bg-pink-600 transition-colors transform hover:scale-105 active:scale-95 w-auto md:w-full min-w-[140px] cursor-pointer"
+                                className="flex items-center justify-center gap-2 bg-[var(--color-brand-pink,#E91E63)] text-white px-5 py-2 rounded-full font-medium text-sm md:text-lg shadow-lg hover:bg-pink-600 transition-colors transform hover:scale-105 active:scale-95 w-auto md:w-full min-w-[140px] cursor-pointer"
                             >
                                 <Plus size={16} />
                                 Agregar
@@ -77,7 +77,7 @@ export const StoryFormSection = ({
                         {characters.length > 1 && (
                             <button
                                 onClick={onRemoveCharacter}
-                                className="bg-white/20 hover:bg-white/30 text-white px-5 py-2 rounded-full font-medium text-sm md:text-base transition-colors border border-white/40 w-auto md:w-full min-w-[140px] cursor-pointer"
+                                className="bg-white/20 hover:bg-white/30 text-white px-5 py-2 rounded-full font-medium text-sm md:text-lg transition-colors border border-white/40 w-auto md:w-full min-w-[140px] cursor-pointer"
                             >
                                 Eliminar último
                             </button>

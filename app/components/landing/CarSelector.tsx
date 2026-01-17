@@ -28,7 +28,7 @@ export function CarSelector({ selectedCar, onSelect }: CarSelectorProps) {
 
     return (
         <div className="w-full max-w-7xl mx-auto mt-2 md:mt-4 px-4 overflow-hidden relative">
-            <h3 className="text-white text-center text-sm md:text-lg font-medium mb-2 md:mb-4 drop-shadow-md">
+            <h3 className="text-white text-center text-sm md:text-xl font-medium mb-2 md:mb-4 drop-shadow-md">
                 Elegí tu Renault de viaje
             </h3>
 
@@ -66,7 +66,7 @@ export function CarSelector({ selectedCar, onSelect }: CarSelectorProps) {
                                         sizes="(max-width: 768px) 33vw, (max-width: 1200px) 10vw, 10vw"
                                     />
                                 </div>
-                                <span className="text-white text-[9px] md:text-xs mt-1 font-medium drop-shadow-sm text-center truncate w-full">{car.name}</span>
+                                <span className="text-white text-xs md:text-sm mt-1 font-medium drop-shadow-sm text-center truncate w-full">{car.name}</span>
                             </div>
                         </div>
                     );

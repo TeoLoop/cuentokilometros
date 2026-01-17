@@ -21,45 +21,43 @@ export async function generateStory(
   const randomTheme = THEMES[Math.floor(Math.random() * THEMES.length)];
 
   // Usamos el modelo solicitado, con fallback
-  const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" }); 
+  const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
   // Nota: Cambié a 1.5-flash por seguridad ya que 2.5 a veces da error si no tienes la beta activada, 
   // pero puedes volver a poner "gemini-2.5-flash" si prefieres.
 
   const prompt = `
-    Eres un cuentacuentos uruguayo. Escribe un cuento para niños de APROX 300 PALABRAS.
-    
-    ESTRICTAMENTE: 
-    - Devuelve SOLO texto plano y corrido (sin títulos ni capítulos).
-    - NO dejes renglones vacíos innecesarios.
+  Eres un narrador de cuentos profesional.
+  Escribe una historia para niños de APROX 300 PALABRAS.
+  
+  ESTRICTAMENTE: 
+  - Devuelve SOLO texto plano y corrido.
+  - NO uses títulos, ni capítulos, ni formato Markdown.
 
-    --- PERSONAJES (REGLA DE ORO) ---
-    Los ÚNICOS viajeros son: ${characters.filter(c => c.name && c.role).map(c => `${c.name} (${c.role})`).join(", ")}.
-    
-    PROHIBIDO: 
-    - NO inventes un conductor, chofer o guía.
-    - NO agregues padres, abuelos o mascotas si no están en la lista de arriba.
-    - El auto se maneja solo o lo maneja uno de los personajes listados si es adulto. NADIE MÁS sube al auto.
+  --- PERSONAJES ---
+  Viajeros: ${characters.filter(c => c.name && c.role).map(c => `${c.name} (${c.role})`).join(", ")}.
+PROHIBIDO: No inventes conductores, guías ni personajes extra que no estén en la lista.
 
-    --- ELEMENTOS ---
-    Auto: Renault ${selectedCar}.
-    Tema: ${randomTheme}.
+  --- ELEMENTOS ---
+  Auto: Renault ${selectedCar}.
+  Tema: ${randomTheme}.
 
-    --- HISTORIA (Fluida y de un tirón) ---
-    Empieza en Uruguay, un día lindo. Suben al Renault ${selectedCar} (describe su confort tiene que girar en torno a esto el principio). Al arrancar, el paisaje cambia mágicamente y entran al mundo de "${randomTheme}".
-    
-    Viven una aventura donde tienen que resolver un problema. puedes usar algo del auto para resolverlo o no.
-    
-    Terminan volviendo a casa felices.
+  --- HISTORIA (Narrativa fluida) ---
+  1. Inicio: En Uruguay, suben al Renault ${selectedCar} (destaca su confort y tecnología). Viajan mágicamente a "${randomTheme}".
+  2. Misión: Tienen que resolver un problema o encontrar algo importante (tipo inicio desarrollo y final).
+  3. Final: Vuelven a casa felices.
 
-    REGLAS DE CIERRE (CRÍTICO)
-    - El texto debe terminar ESTRICTAMENTE con el punto final de la historia.
-    - NO agregues preguntas al lector como "¿Te gustó?" o "¿Querés otro?".
-    - NO agregues notas del autor ni despedidas.
-    - NO uses emojis.
+  REGLAS DE CIERRE (CRÍTICO) ---
+  - Termina con punto final. 
+  - NO hagas preguntas al lector. NO escribas "¿Qué pasará después?" ni "¿Te gustó?".
+  - NO pongas despedidas.
 
-    --- TONO ---
-    Lenguaje rioplatense tierno ("bo", "che", "gurises"). Emocionante y sensorial.
-  `;
+  --- TONO (AJUSTE IMPORTANTE) ---
+  - Narración en español Rioplatense NATURAL (Uruguay).
+  - Usa "vos" en lugar de "tú".
+  - NO abuses del lunfardo. NO uses "bo", "che", "gurises" o "ta" en cada frase. Úsalos con mucha moderación, solo si es indispensable.
+  - El tono debe sonar como un padre moderno contando un cuento, no como una caricatura exagerada.
+  - Estilo: Mágico, asombroso y cálido.
+`;
 
   try {
     const result = await model.generateContent(prompt);

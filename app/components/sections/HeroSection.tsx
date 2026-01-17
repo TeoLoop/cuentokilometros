@@ -30,7 +30,7 @@ export const HeroSection = ({ onStartClick }: HeroSectionProps) => {
             <div className="relative flex flex-col items-center justify-center z-10 w-full max-w-md">
 
                 {/* --- CAPA 2: La Sombra (AHORA DENTRO DEL WRAPPER) --- */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] max-w-[500px] aspect-square z-0 pointer-events-none opacity-90 md:hidden">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[130%] max-w-[550px] aspect-square z-0 pointer-events-none opacity-90 md:hidden">
                     <div className="relative w-full h-full">
                         <Image
                             src="/images/backgrounds/sombra.png"
@@ -68,13 +68,13 @@ export const HeroSection = ({ onStartClick }: HeroSectionProps) => {
                     </div>
 
                     <p
-                        className="text-white text-center text-xs sm:text-sm md:hidden w-full max-w-xs drop-shadow-md px-4 font-medium mb-6 mx-auto text-balance"
+                        className="text-white text-center text-sm md:hidden w-full max-w-sm drop-shadow-md px-4 font-medium mb-6 mx-auto text-balance leading-relaxed"
                     >
                         <span className="block mb-2">
                             Porque cada Kilómetro en tu Renault es una aventura,
                             creamos Cuento Kilómetros.
                         </span>
-                        
+
                         <span className="block">
                             Una plataforma de audio cuentos pensados para escuchar en el camino, junto a quienes viajan con vos y tu Renault.
                         </span>

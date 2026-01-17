@@ -28,7 +28,7 @@ export function CharacterInput({
 }: CharacterInputProps) {
   return (
     <div className="flex flex-col gap-1 w-full max-w-sm">
-      <label className="text-white font-medium text-xs md:text-base text-center drop-shadow-md">
+      <label className="text-white font-medium text-xs md:text-lg text-center drop-shadow-md">
         Personaje {index + 1}
       </label>
       <div className="flex flex-row md:flex-col gap-2">

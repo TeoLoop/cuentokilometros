@@ -21,8 +21,8 @@ export const ResultCard = ({
                 ) : (<div className="text-white/50 text-sm animate-pulse">Cargando audio...</div>)}
             </div>
 
-            <div className="max-h-60 overflow-y-auto pr-2 mb-6 text-sm leading-relaxed scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-transparent">
-                <p className="whitespace-pre-wrap">{story}</p>
+            <div className="max-h-60 overflow-y-auto pr-2 mb-6 scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-transparent">
+                <p className="whitespace-pre-wrap text-base md:text-xl leading-loose">{story}</p>
             </div>
 
             <div className="flex justify-center">
