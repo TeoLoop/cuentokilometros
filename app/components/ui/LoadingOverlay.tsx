@@ -9,6 +9,17 @@ const LOADING_MESSAGES = [
     "Buscando la ruta en el mapa secreto...",
     "Escribiendo la próxima aventura...",
     "Sintonizando radio cuentos...",
+    "Llenando el tanque de imaginación...",
+    "Limpiando polvo de estrellas del parabrisas...",
+    "Despertando a los duendes del motor...",
+    "Cargando el GPS de mundos perdidos...",
+    "Calibrando los propulsores de velocidad luz...",
+    "Escaneando el horizonte en busca de dragones...",
+    "Guardando bocadillos en la guantera mágica...",
+    "Activando el escudo anti-aburrimiento...",
+    "Conectando con la torre de control de la fantasía...",
+    "Encendiendo las luces altas para ver el futuro...",
+    "Abrochando cinturones de seguridad invisibles..."
 ];
 
 export const LoadingOverlay = () => {

@@ -58,7 +58,7 @@ PROHIBIDO: No inventes conductores, guías ni personajes extra que no estén en 
   - Narración en español Rioplatense NATURAL (Uruguay).
   - Usa "vos" en lugar de "tú".
   - NO abuses del lunfardo. NO uses "bo", "che", "gurises" o "ta" en cada frase. Úsalos con mucha moderación, solo si es indispensable.
-  - El tono debe sonar como un padre moderno contando un cuento, no como una caricatura exagerada.
+  - El tono debe sonar como contando un cuento, no como una caricatura exagerada, No uses "yo" ni "nosotros".
   - Estilo: Mágico, asombroso y cálido.
 `;
 
