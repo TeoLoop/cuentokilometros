@@ -4,13 +4,19 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 
 // Lista de temáticas para dar variedad
 const THEMES = [
-  "Mundo de los Dinosaurios Amigables",
-  "Viaje Intergaláctico a la Luna de Queso",
-  "Aventura en el Fondo del Mar con Peces Parlantes",
-  "Ciudad Futurista de Robots Ayudantes",
-  "Bosque Encantado de las Hadas",
-  "Isla de los Piratas Buenos",
-  "Carrera en las Nubes de Algodón"
+  "El Valle Secreto de los Dinosaurios Inventores",
+  "Viaje Intergaláctico a la Luna de Queso y Estrellas de Azúcar",
+  "Misión Submarina en la Ciudad de los Peces Luminosos",
+  "La Gran Carrera en la Ciudad del Futuro",
+  "El Bosque Encantado donde los Árboles Cuentan Chistes",
+  "La Isla del Tesoro de Chocolate de los Piratas Buenos",
+  "Campeonato de Vuelo entre Nubes de Algodón",
+  "Expedición al Polo Norte de los Pingüinos Bailarines",
+  "Safari en la Selva de los Juguetes Perdidos",
+  "El Castillo de los Dragones que Escupen Burbujas",
+  "Misterio en la Fábrica de Arcoíris",
+  "El Planeta Gelatina donde todo Rebota",
+  "El Jardín Gigante de los Insectos Musicos"
 ];
 
 export async function generateStory(
@@ -20,10 +26,7 @@ export async function generateStory(
   // Elegimos un tema al azar
   const randomTheme = THEMES[Math.floor(Math.random() * THEMES.length)];
 
-  // Usamos el modelo solicitado, con fallback
   const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-  // Nota: Cambié a 1.5-flash por seguridad ya que 2.5 a veces da error si no tienes la beta activada, 
-  // pero puedes volver a poner "gemini-2.5-flash" si prefieres.
 
   const prompt = `
   Eres un narrador de cuentos profesional.
@@ -62,6 +65,7 @@ PROHIBIDO: No inventes conductores, guías ni personajes extra que no estén en 
   try {
     const result = await model.generateContent(prompt);
     const response = await result.response;
+    console.log("Respuesta cruda de Gemini:", response.text());
     return response.text();
   } catch (error) {
     console.warn("Error en generación, intentando fallback...");

@@ -77,7 +77,7 @@ export const StoryFormSection = ({
                         {characters.length > 1 && (
                             <button
                                 onClick={onRemoveCharacter}
-                                className="bg-white/20 hover:bg-white/30 text-white px-5 py-2 rounded-full font-medium text-sm md:text-lg transition-colors border border-white/40 w-auto md:w-full min-w-[140px] cursor-pointer"
+                                className="bg-white/20 hover:bg-white/30 text-white px-5 py-2 rounded-full font-medium text-m md:text-lg transition-colors border border-white/40 w-auto md:w-full min-w-[140px] cursor-pointer"
                             >
                                 Eliminar último
                             </button>

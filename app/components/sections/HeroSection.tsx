@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Sparkles, ChevronDown } from "lucide-react";
 import styles from "../../Home.module.css";
 
 interface HeroSectionProps {
@@ -85,25 +86,14 @@ export const HeroSection = ({ onStartClick }: HeroSectionProps) => {
 
             <button
                 onClick={onStartClick}
-                className="md:hidden absolute bottom-24 bg-white/10 backdrop-blur-md border border-white/30 text-white text-base px-8 py-3 rounded-full font-medium shadow-lg hover:bg-white/20 transition-all transform hover:scale-105 active:scale-95 z-10 cursor-pointer animate-fade-in-up"
+                className="md:hidden absolute bottom-16 bg-white/10 backdrop-blur-md border border-white/30 text-white text-sm px-8 py-4 rounded-full font-medium shadow-lg hover:bg-white/20 transition-all transform hover:scale-105 active:scale-95 z-30 cursor-pointer animate-fade-in-up flex items-center justify-center gap-3 w-auto min-w-[280px]"
             >
                 Empezá tu Cuento Kilómetros
+                <Sparkles className="w-5 h-5 text-yellow-200 animate-pulse" />
             </button>
 
-            {/* Scroll Indicator */}
-            <div className="absolute bottom-8 animate-bounce md:hidden z-10 text-white/70">
-                <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                >
-                    <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
-                </svg>
+            <div className="md:hidden absolute bottom-6 right-6 z-30 animate-bounce">
+                <ChevronDown className="w-6 h-6 text-white/80" />
             </div>
         </section>
     );
