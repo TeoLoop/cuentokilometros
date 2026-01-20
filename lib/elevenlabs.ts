@@ -27,7 +27,7 @@ export async function generateAudio(text: string): Promise<Buffer> {
         similarity_boost: 0.5, // Menor boost para evitar saturación/artefactos
         style: 0.0,
         use_speaker_boost: true,
-        speed: 1.00, // Velocidad normal
+        speed: 1.05, // Velocidad normal
       },
     });
 
