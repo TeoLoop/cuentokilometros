@@ -35,8 +35,8 @@ export const LoadingOverlay = () => {
 
     return (
         <div className="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-hidden bg-[#1a0540]">
-            {/* 1. Fondo Premium: Gradiente Radial Profundo */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#4c1d95] via-[#2e1065] to-[#1a0540] opacity-100" />
+            {/* 1. Fondo Premium: Gradiente Radial Profundo - MÁS VIBRANTE */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#7c3aed] via-[#4c1d95] to-[#1e1b4b] opacity-100" />
 
             {/* 2. Efecto de Partículas/Estrellas (Sutil) */}
             <div className="absolute inset-0 pointer-events-none opacity-40">

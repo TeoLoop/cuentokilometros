@@ -15,7 +15,7 @@ export const ResultCard = ({
 
   const handlePlay = () => {
     if (bgAudioRef.current) {
-      bgAudioRef.current.volume = 0.1; // 10% volume
+      bgAudioRef.current.volume = 0.05; // 5% volume (Background)
       bgAudioRef.current
         .play()
         .catch((e) => console.log("Bg audio play error", e));
@@ -67,7 +67,20 @@ export const ResultCard = ({
 
       <div className="flex justify-center">
         <button
-          onClick={onOpenEmailModal}
+          onClick={() => {
+            const isMobile = window.innerWidth < 768; // Simple check for mobile logic
+            if (isMobile) {
+              onOpenEmailModal();
+            } else {
+              // Desktop: Direct download
+              const link = document.createElement("a");
+              link.href = audioSrc;
+              link.download = "cuento-kilometros.mp3";
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+            }
+          }}
           className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-full font-medium transition-colors shadow-lg cursor-pointer"
         >
           Descargar / Guardar

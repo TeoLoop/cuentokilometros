@@ -30,7 +30,7 @@ export async function generateStory(
 
   const prompt = `
   Eres un narrador de cuentos profesional.
-  Escribe una historia para niños de APROX 300 PALABRAS.
+  Escribe una historia para niños de APROX 250 PALABRAS.
   
   ESTRICTAMENTE: 
   - Devuelve SOLO texto plano y corrido.

@@ -23,11 +23,11 @@ export async function generateAudio(text: string): Promise<Buffer> {
       text: text,
       model_id: "eleven_multilingual_v2", // Crucial para que hable bien español
       voice_settings: {
-        stability: 0.6, // Más expresividad
-        similarity_boost: 0.75, // Claridad de voz
+        stability: 0.8, // Mayor estabilidad para evitar cambios de tono
+        similarity_boost: 0.5, // Menor boost para evitar saturación/artefactos
         style: 0.0,
         use_speaker_boost: true,
-        speed: 1.15,
+        speed: 1.00, // Velocidad normal
       },
     });
 
