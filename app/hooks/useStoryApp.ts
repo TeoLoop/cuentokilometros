@@ -120,9 +120,12 @@ export const useStoryApp = () => {
         }
 
         // ESTRATEGIA:
-        // 1. Si es móvil/soporta compartir archivos -> Usar Menú Nativo (iOS Friendly)
-        // 2. Si es Desktop -> Usar descarga forzada clásica
+        // 1. Si es móvil (width < 768px) Y soporta compartir archivos -> Usar Menú Nativo
+        // 2. En Desktop o si no soporta compartir -> Usar descarga forzada clásica
+        const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+
         if (
+            isMobile &&
             fileToShare &&
             navigator.canShare &&
             navigator.canShare({ files: [fileToShare] })
