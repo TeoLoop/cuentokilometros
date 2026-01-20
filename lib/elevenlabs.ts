@@ -9,7 +9,7 @@ if (!apiKey) {
 // Inicializar cliente oficial
 const client = new ElevenLabsClient({
   apiKey: apiKey,
-});
+}); 
 
 export async function generateAudio(text: string): Promise<Buffer> {
   try {
