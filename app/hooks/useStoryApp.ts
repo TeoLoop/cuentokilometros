@@ -107,72 +107,83 @@ export const useStoryApp = () => {
             const audioResponse = await generateAudioStream(accumulatedStory);
             if (!audioResponse.body) throw new Error("No audio response body");
 
-            // --- ESTO ES "TRUE STREAMING" ---
-            const mediaSource = new MediaSource();
-            const audioUrl = URL.createObjectURL(mediaSource);
-            setAudioSrc(audioUrl); // El <audio> se conecta YA mismo al MediaSource
+            // DETECCION DE IOS (Para Fallback)
+            const isIOS = typeof navigator !== "undefined" && /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-            const audioChunks: any[] = [];
+            if (isIOS) {
+                // --- ESTRATEGIA IOS: Blob Completo (Estabilidad) ---
+                console.log("iOS detectado: Usando estrategia Blob fallback");
+                const blob = await audioResponse.blob();
+                const url = URL.createObjectURL(blob);
+                setAudioSrc(url);
+            } else {
+                // --- ESTRATEGIA STANDARD: True Streaming (Velocidad) ---
+                const mediaSource = new MediaSource();
+                const audioUrl = URL.createObjectURL(mediaSource);
+                setAudioSrc(audioUrl); // El <audio> se conecta YA mismo al MediaSource
 
-            mediaSource.addEventListener("sourceopen", async () => {
-                const sourceBuffer = mediaSource.addSourceBuffer("audio/mpeg");
-                const reader = audioResponse.body!.getReader();
-                const queue: any[] = [];
-                let isAppending = false;
+                const audioChunks: any[] = [];
 
-                const processQueue = () => {
-                    if (queue.length > 0 && !isAppending && !sourceBuffer.updating) {
-                        isAppending = true;
-                        const chunk = queue.shift()!;
-                        try {
-                            sourceBuffer.appendBuffer(chunk);
-                        } catch (e) {
-                            console.error("Error appending buffer", e);
+                mediaSource.addEventListener("sourceopen", async () => {
+                    const sourceBuffer = mediaSource.addSourceBuffer("audio/mpeg");
+                    const reader = audioResponse.body!.getReader();
+                    const queue: any[] = [];
+                    let isAppending = false;
+
+                    const processQueue = () => {
+                        if (queue.length > 0 && !isAppending && !sourceBuffer.updating) {
+                            isAppending = true;
+                            const chunk = queue.shift()!;
+                            try {
+                                sourceBuffer.appendBuffer(chunk);
+                            } catch (e) {
+                                console.error("Error appending buffer", e);
+                            }
                         }
-                    }
-                };
+                    };
 
-                sourceBuffer.addEventListener("updateend", () => {
-                    isAppending = false;
-                    processQueue();
-                });
-
-                while (true) {
-                    const { done, value } = await reader.read();
-                    if (done) {
-                        if (!sourceBuffer.updating && queue.length === 0) {
-                            mediaSource.endOfStream();
-                        } else {
-                            // Si todavía está procesando, esperamos que termine antes de cerrar
-                            const checkEnd = setInterval(() => {
-                                if (!sourceBuffer.updating && queue.length === 0) {
-                                    clearInterval(checkEnd);
-                                    if (mediaSource.readyState === 'open') {
-                                        mediaSource.endOfStream();
-                                    }
-                                }
-                            }, 100);
-                        }
-
-                        // --- FINALIZAR: Crear Blob para descarga ---
-                        const fullAudioBlob = new Blob(audioChunks, { type: "audio/mpeg" });
-                        const fullAudioUrl = URL.createObjectURL(fullAudioBlob);
-                        // Reemplazamos el src del MediaSource por el del Blob completo 
-                        // para que el botón de descarga funcione correctamente
-                        setAudioSrc(fullAudioUrl);
-                        break;
-                    }
-
-                    if (value) {
-                        // 1. Playback Logic
-                        queue.push(value as any);
+                    sourceBuffer.addEventListener("updateend", () => {
+                        isAppending = false;
                         processQueue();
+                    });
 
-                        // 2. Save Logic
-                        audioChunks.push(value);
+                    while (true) {
+                        const { done, value } = await reader.read();
+                        if (done) {
+                            if (!sourceBuffer.updating && queue.length === 0) {
+                                mediaSource.endOfStream();
+                            } else {
+                                // Si todavía está procesando, esperamos que termine antes de cerrar
+                                const checkEnd = setInterval(() => {
+                                    if (!sourceBuffer.updating && queue.length === 0) {
+                                        clearInterval(checkEnd);
+                                        if (mediaSource.readyState === 'open') {
+                                            mediaSource.endOfStream();
+                                        }
+                                    }
+                                }, 100);
+                            }
+
+                            // --- FINALIZAR: Crear Blob para descarga ---
+                            const fullAudioBlob = new Blob(audioChunks, { type: "audio/mpeg" });
+                            const fullAudioUrl = URL.createObjectURL(fullAudioBlob);
+                            // Reemplazamos el src del MediaSource por el del Blob completo 
+                            // para que el botón de descarga funcione correctamente
+                            setAudioSrc(fullAudioUrl);
+                            break;
+                        }
+
+                        if (value) {
+                            // 1. Playback Logic
+                            queue.push(value as any);
+                            processQueue();
+
+                            // 2. Save Logic
+                            audioChunks.push(value);
+                        }
                     }
-                }
-            });
+                });
+            }
 
             // 3. Reveal Content
             setIsLoading(false);
