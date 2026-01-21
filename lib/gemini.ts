@@ -63,12 +63,13 @@ PROHIBIDO: No inventes conductores, guías ni personajes extra que no estén en 
 `;
 
   try {
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    console.log("Respuesta cruda de Gemini:", response.text());
-    return response.text();
+    const result = await model.generateContentStream(prompt);
+    return result;
   } catch (error) {
     console.warn("Error en generación, intentando fallback...");
-    return "Había una vez un viaje mágico en un Renault, pero la magia se tomó un descansito. Por favor intenta de nuevo.";
+    // Fallback simple no stream, returns object compatible with stream consumer if handled, 
+    // but better to throw or handle graceful failure in stream consumption.
+    // For simplicity, re-throwing to let caller handle error or just returning null.
+    throw error;
   }
 }

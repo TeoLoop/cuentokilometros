@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Character, ValidationError } from "@/app/types";
-import { generateStory, saveEmail } from "@/app/services/storyService";
+import { generateStory, saveEmail, generateAudioStream } from "@/app/services/storyService";
 
 export const useStoryApp = () => {
     const [characters, setCharacters] = useState<Character[]>([
@@ -83,22 +83,102 @@ export const useStoryApp = () => {
         setAudioSrc("");
 
         try {
-            const data = await generateStory(characters, selectedCar);
-            setStory(data.story);
-            // Base64 to Blob conversion logic
-            const byteCharacters = atob(data.audio);
-            const byteNumbers = new Array(byteCharacters.length);
-            for (let i = 0; i < byteCharacters.length; i++) {
-                byteNumbers[i] = byteCharacters.charCodeAt(i);
+            // 1. Generate Story Text Stream
+            const response = await generateStory(characters, selectedCar);
+            if (!response.body) throw new Error("No response body");
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+            let accumulatedStory = "";
+            let done = false;
+
+            while (!done) {
+                const { value, done: doneReading } = await reader.read();
+                done = doneReading;
+                if (value) {
+                    const chunk = decoder.decode(value, { stream: true });
+                    accumulatedStory += chunk;
+                }
             }
-            const byteArray = new Uint8Array(byteNumbers);
-            const blob = new Blob([byteArray], { type: "audio/mpeg" });
-            const url = URL.createObjectURL(blob);
-            setAudioSrc(url);
+
+            setStory(accumulatedStory);
+
+            // 2. Generate Audio Stream (Once story is complete)
+            const audioResponse = await generateAudioStream(accumulatedStory);
+            if (!audioResponse.body) throw new Error("No audio response body");
+
+            // --- ESTO ES "TRUE STREAMING" ---
+            const mediaSource = new MediaSource();
+            const audioUrl = URL.createObjectURL(mediaSource);
+            setAudioSrc(audioUrl); // El <audio> se conecta YA mismo al MediaSource
+
+            const audioChunks: any[] = [];
+
+            mediaSource.addEventListener("sourceopen", async () => {
+                const sourceBuffer = mediaSource.addSourceBuffer("audio/mpeg");
+                const reader = audioResponse.body!.getReader();
+                const queue: any[] = [];
+                let isAppending = false;
+
+                const processQueue = () => {
+                    if (queue.length > 0 && !isAppending && !sourceBuffer.updating) {
+                        isAppending = true;
+                        const chunk = queue.shift()!;
+                        try {
+                            sourceBuffer.appendBuffer(chunk);
+                        } catch (e) {
+                            console.error("Error appending buffer", e);
+                        }
+                    }
+                };
+
+                sourceBuffer.addEventListener("updateend", () => {
+                    isAppending = false;
+                    processQueue();
+                });
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) {
+                        if (!sourceBuffer.updating && queue.length === 0) {
+                            mediaSource.endOfStream();
+                        } else {
+                            // Si todavía está procesando, esperamos que termine antes de cerrar
+                            const checkEnd = setInterval(() => {
+                                if (!sourceBuffer.updating && queue.length === 0) {
+                                    clearInterval(checkEnd);
+                                    if (mediaSource.readyState === 'open') {
+                                        mediaSource.endOfStream();
+                                    }
+                                }
+                            }, 100);
+                        }
+
+                        // --- FINALIZAR: Crear Blob para descarga ---
+                        const fullAudioBlob = new Blob(audioChunks, { type: "audio/mpeg" });
+                        const fullAudioUrl = URL.createObjectURL(fullAudioBlob);
+                        // Reemplazamos el src del MediaSource por el del Blob completo 
+                        // para que el botón de descarga funcione correctamente
+                        setAudioSrc(fullAudioUrl);
+                        break;
+                    }
+
+                    if (value) {
+                        // 1. Playback Logic
+                        queue.push(value as any);
+                        processQueue();
+
+                        // 2. Save Logic
+                        audioChunks.push(value);
+                    }
+                }
+            });
+
+            // 3. Reveal Content
+            setIsLoading(false);
         } catch (e) {
             console.error(e);
             alert("Error al conectar con el servidor o generar el cuento.");
-        } finally {
             setIsLoading(false);
         }
     };

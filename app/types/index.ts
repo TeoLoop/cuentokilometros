@@ -13,7 +13,7 @@ export interface ValidationError {
 
 export interface StoryResponse {
     story: string;
-    audio: string; // Base64 string
+    audio?: string; // Base64 string (Legacy/Optional)
 }
 
 export interface StoryPayload {

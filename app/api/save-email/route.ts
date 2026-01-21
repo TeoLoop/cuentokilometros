@@ -39,7 +39,16 @@ export async function POST(req: NextRequest) {
 
     await sheet.addRow({
       email,
-      date: new Date().toISOString(),
+      date: new Intl.DateTimeFormat("es-UY", {
+        timeZone: "America/Montevideo",
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false,
+      }).format(new Date()),
     });
 
     return NextResponse.json({ success: true });
