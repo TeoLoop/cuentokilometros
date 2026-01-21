@@ -13,6 +13,7 @@ export const useStoryApp = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [story, setStory] = useState("");
     const [audioSrc, setAudioSrc] = useState("");
+    const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
     const [showEmailModal, setShowEmailModal] = useState(false);
     const [email, setEmail] = useState("");
     const [isSavingEmail, setIsSavingEmail] = useState(false);
@@ -81,6 +82,7 @@ export const useStoryApp = () => {
         setIsLoading(true);
         setStory("");
         setAudioSrc("");
+        setDownloadUrl(null);
 
         try {
             // 1. Generate Story Text Stream
@@ -116,6 +118,7 @@ export const useStoryApp = () => {
                 const blob = await audioResponse.blob();
                 const url = URL.createObjectURL(blob);
                 setAudioSrc(url);
+                setDownloadUrl(url); // En iOS, el mismo URL sirve para ambos
             } else {
                 // --- ESTRATEGIA STANDARD: True Streaming (Velocidad) ---
                 const mediaSource = new MediaSource();
@@ -167,9 +170,10 @@ export const useStoryApp = () => {
                             // --- FINALIZAR: Crear Blob para descarga ---
                             const fullAudioBlob = new Blob(audioChunks, { type: "audio/mpeg" });
                             const fullAudioUrl = URL.createObjectURL(fullAudioBlob);
-                            // Reemplazamos el src del MediaSource por el del Blob completo 
-                            // para que el botón de descarga funcione correctamente
-                            setAudioSrc(fullAudioUrl);
+
+                            // IMPORTANTE: Solo actualizamos el URL de DESCARGA, no el del reproductor.
+                            // Si actualizamos audioSrc aquí, el reproductor se reinicia/corta porque cambia el source.
+                            setDownloadUrl(fullAudioUrl);
                             break;
                         }
 
@@ -197,11 +201,13 @@ export const useStoryApp = () => {
     const handleSaveEmail = async () => {
         if (!email) return;
 
+        const targetUrl = downloadUrl || audioSrc;
+
         // Recuperamos el archivo real desde la URL del blob para poder compartirlo
         let fileToShare: File | null = null;
-        if (audioSrc) {
+        if (targetUrl) {
             try {
-                const blob = await fetch(audioSrc).then((r) => r.blob());
+                const blob = await fetch(targetUrl).then((r) => r.blob());
                 fileToShare = new File([blob], "cuento-kilometros.mp3", {
                     type: "audio/mpeg",
                 });
@@ -229,10 +235,10 @@ export const useStoryApp = () => {
                 // El usuario canceló el menú de compartir, no es un error crítico
                 console.log("Compartir cancelado o fallido", error);
             }
-        } else if (audioSrc) {
+        } else if (targetUrl) {
             // Fallback para Desktop (tu código original)
             const link = document.createElement("a");
-            link.href = audioSrc;
+            link.href = targetUrl;
             link.download = "cuento-kilometros.mp3";
             document.body.appendChild(link);
             link.click();

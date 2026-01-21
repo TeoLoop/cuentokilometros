@@ -33,7 +33,7 @@ export const ResultCard = ({
       {/* Background Music */}
       <audio
         ref={bgAudioRef}
-        src="/audio/curious-critters_main-full97.mp3"
+        src="/audio/curious-critters_main-full.mp3"
         loop
       />
 
