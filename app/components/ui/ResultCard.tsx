@@ -15,7 +15,7 @@ export const ResultCard = ({
 
   const handlePlay = () => {
     if (bgAudioRef.current) {
-      bgAudioRef.current.volume = 0.03; // 3% volume (Background)
+      bgAudioRef.current.volume = 1.0;
       bgAudioRef.current
         .play()
         .catch((e) => console.log("Bg audio play error", e));
@@ -33,7 +33,7 @@ export const ResultCard = ({
       {/* Background Music */}
       <audio
         ref={bgAudioRef}
-        src="/audio/curious-critters_main-full.wav"
+        src="/audio/curious-critters_main-full97.mp3"
         loop
       />
 
