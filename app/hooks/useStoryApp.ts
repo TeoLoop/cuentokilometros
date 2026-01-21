@@ -224,8 +224,6 @@ export const useStoryApp = () => {
             try {
                 await navigator.share({
                     files: [fileToShare],
-                    title: "Cuento Kilómetros",
-                    text: "Escucha este cuento creado con Renault.",
                 });
             } catch (error) {
                 // El usuario canceló el menú de compartir, no es un error crítico
