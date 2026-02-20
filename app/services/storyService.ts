@@ -31,6 +31,7 @@ export const generateAudioStream = async (text: string): Promise<Response> => {
     return res;
 };
 
+// Guardar email
 export const saveEmail = async (email: string): Promise<void> => {
     const res = await fetch("/api/save-email", {
         method: "POST",
