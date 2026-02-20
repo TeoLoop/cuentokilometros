@@ -2,7 +2,7 @@
 
 **Cuento Kilómetros** is an interactive web experience for Renault, allowing users to generate personalized stories based on their family characters and chosen vehicle.
 
-![Project Banner](/images/backgrounds/landing-desktop.jpg)
+<img width="1919" height="920" alt="imagen" src="https://github.com/user-attachments/assets/fb971bc6-dc5e-4077-8be1-e1c422dfbba1" />
 
 ## ✨ Features
 
